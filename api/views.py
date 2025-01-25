@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import User
 from .serializers import UserSerializer
-
+from .models import UploadedImage
+from .serializers import UploadedImageSerializer
 class UserList(APIView):
      # Require authentication for all methods
     permission_classes = [IsAuthenticated]
@@ -58,3 +59,10 @@ class UserDetail(APIView):
                 {"error": "User not found"},
                 status=status.HTTP_404_NOT_FOUND
             )
+class ImageUploadView(APIView):
+    def post(self, request):
+        serializer = UploadedImageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
