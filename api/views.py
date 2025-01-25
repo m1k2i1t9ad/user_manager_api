@@ -1,10 +1,14 @@
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User
 from .serializers import UserSerializer
 
 class UserList(APIView):
+     # Require authentication for all methods
+    permission_classes = [IsAuthenticated]
+
     # GET method: Retrieve all users
     def get(self, request):
         # Query the database for all user records.
@@ -31,6 +35,9 @@ class UserList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserDetail(APIView):
+    # Require authentication for delete operations
+    permission_classes = [IsAuthenticated]
+
     # DELETE method: Delete a user by ID
     def delete(self, request, id):
         try:
