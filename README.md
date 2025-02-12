@@ -1,5 +1,9 @@
 User Management API with Django and Cloudinary Storage
+
+
 Overview
+
+
 This is a User Management API built using Django and Django REST Framework. The API allows you to perform CRUD (Create, Read, Update, Delete) operations on user profiles, including managing user data and profile images. The profile images are stored using Cloudinary, a cloud-based storage service optimized for media management.
 
 Features
